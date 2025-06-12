@@ -29,11 +29,10 @@ class ThematicAnalysis:
         tokens = [lemmatizer.lemmatize(word) for word in tokens if word.isalnum() and word not in stop_words]
         return ' '.join(tokens)
     
-    def get_keyword(self, text, n=20):
+    def get_keyword(self, text, n=100):
         """
         Extract keywords from the text using TF-IDF.
         """
-        print("Extracting keywords using TF-IDF...")
 
         # Initialize TF-IDF Vectorizer
         # min_df: ignore terms that appear in less than 2 documents
@@ -54,7 +53,6 @@ class ThematicAnalysis:
 
         # Get and print the top N terms based on their TF-IDF scores
         top_terms = [feature_names[i] for i in sorted_indices[:n]]
-        print(f"{top_terms}")
 
         return top_terms
 
@@ -66,11 +64,11 @@ class ThematicAnalysis:
         :return: List of assigned themes.
         """
         theme_keywords = {
-            'Account Access/Login Issues': ['login', 'account', 'access', 'password', 'signin', 'username', 'locked', 'credential', 'verification', 'log'],
-            'Transaction Performance/Issues': ['transfer', 'payment', 'transaction', 'send', 'receive', 'money', 'slow', 'fast', 'pending', 'fail', 'delay', 'deposit', 'withdraw'],
-            'User Interface/Experience (UI/UX)': ['app', 'ui', 'user interface', 'design', 'easy', 'difficult', 'complex', 'intuitive', 'navigation', 'interface', 'update', 'bug', 'crash', 'glitch'],
-            'Customer Support/Service': ['support', 'customer service', 'help', 'contact', 'response', 'reply', 'assist', 'call', 'email', 'agent'],
-            'Features/Functionality Requests': ['feature', 'add', 'request', 'missing', 'option', 'tool', 'card', 'otp', 'notification', 'fingerprint', 'face id']
+            'Account Access/Login Issues': ['login', 'account', 'access', 'password', 'signin', 'username', 'locked', 'credential', 'verification'],
+            'Transaction Issues': ['transfer', 'payment', 'transaction', 'send', 'receive', 'money', 'slow',  'pending', 'fail', 'delay', ],
+            'User Interface/Experience (UI/UX)': ['app', 'ui', 'user interface', 'design', 'difficult', 'complex', 'update', 'bug', 'crash',],
+            'Customer Support/Service': ['support', 'customer service', 'help', 'contact', 'response', 'reply', 'assist'],
+            'Features/Functionality Requests': ['feature', 'add', 'request', 'missing', 'option', 'tool', 'card', 'notification', ]
         }
         # Initialize an empty list to hold assigned themes
         assigned_themes = []
