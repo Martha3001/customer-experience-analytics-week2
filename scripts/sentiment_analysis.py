@@ -2,17 +2,18 @@ from transformers import pipeline
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from textblob import TextBlob
 
+sentiment_pipeline = pipeline('sentiment-analysis', model='distilbert-base-uncased-finetuned-sst-2-english', device=0)
+
 class SentimentAnalysis:
     def __init__(self):
         pass
 
     def analyze_sentiment_distilbert(self, text):
         """Analyze sentiment using DistilBERT"""
-        distilbert = pipeline('sentiment-analysis', model='distilbert-base-uncased-finetuned-sst-2-english')
         
         # Ensure text is within the token limit for DistilBERT
         try:
-            result = distilbert(text[:512])[0]  # Truncate to 512 tokens
+            result = sentiment_pipeline(text[:512])[0]  # Truncate to 512 tokens
             return {
                 'sentiment_distilbert': result['label'],
                 'score_distilbert': result['score']
